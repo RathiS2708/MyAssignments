@@ -27,6 +27,6 @@ for(let j = 0;j<=stringlenght.length-1;j++)
              
     }
 
-    //example 3
+
 
 
