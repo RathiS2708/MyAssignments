@@ -8,6 +8,7 @@ for (let i = 0; i<=noOfStrings-1;i++)
         {
         strOutput = char[i].length
         console.log("length of the word " +char[i] +" is:", strOutput)
+            break
         }
         
     }
