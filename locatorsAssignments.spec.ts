@@ -1,7 +1,7 @@
 import test, { expect } from "@playwright/test";
 
 test('Create Lead', async({page}) => {
-    const actualText = 'Harisha'
+    let actualText = 'Harini'
 
     await page.goto("https://login.salesforce.com")
     await page.waitForTimeout(3000)
@@ -37,13 +37,17 @@ test('Create Lead', async({page}) => {
     //await page.click('text = Save')
     await page.locator('//button[@name="SaveEdit"]').click()
     await page.locator('//slot[@name ="primaryField"]').waitFor()
-    const expectedText = await page.locator('//slot[@name ="primaryField"]').innerText()
-    if (actualText === expectedText) {
-        console.log('Values match!');
-        await page.waitForTimeout(3000)
-    } else {
-        console.log('Values do not match');
-    }
+    const expectedText = await page.locator('//lightning-formatted-name[@slot="primaryField"]').textContent()
+    console.log(expectedText);
+    expect(expectedText).toContain(actualText)
+    console.log('Values match!');
+
+    // if (actualText === expectedText) {
+    //     console.log('Values match!');
+    //     await page.waitForTimeout(3000)
+    // } else {
+    //     console.log('Values do not match');
+    // }
 })
 
 test('Edit Lead', async({page}) => {
@@ -139,7 +143,7 @@ test('Edit Individuals', async({page}) =>{
     await page.locator('//input[@class="firstName compoundBorderBottom form-element__row input"]').click()
     await page.locator('//input[@class="firstName compoundBorderBottom form-element__row input"]').fill("Peter")
     await page.locator('.slds-button.slds-button_neutral.uiButton--brand.uiButton.forceActionButton').click()
-    await page.waitForTimeout(3000)
+    await page.waitForTimeout(6000)
     // const updatedName =await expect (page.locator('//div[@title="Mr. v Peter"]')).toHaveText("Peter")
     // console.log(updatedName)
     //expect(updatedName).toBe("Peter");
@@ -147,6 +151,5 @@ test('Edit Individuals', async({page}) =>{
     expect(elementTitle).toContain("Peter");
     //await expect(locator).toHaveText(/Partial Text/);
     console.log("Strings match!");
-
 
 })
